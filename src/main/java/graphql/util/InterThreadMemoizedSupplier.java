@@ -28,9 +28,10 @@ public class InterThreadMemoizedSupplier<T> implements Supplier<T> {
                 if (initialized) {
                     return value;
                 }
-                value = delegate.get();
+                T t = delegate.get();
+                value = t;
                 initialized = true;
-                return value;
+                return t;
             }
         }
         return value;
