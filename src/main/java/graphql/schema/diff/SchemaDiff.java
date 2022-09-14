@@ -367,8 +367,9 @@ public class SchemaDiff {
         Map<String, InputValueDefinition> oldDefinitionMap = sortedMap(oldIVD, InputValueDefinition::getName);
         Map<String, InputValueDefinition> newDefinitionMap = sortedMap(newIVD, InputValueDefinition::getName);
 
-        for (String inputFieldName : oldDefinitionMap.keySet()) {
-            InputValueDefinition oldField = oldDefinitionMap.get(inputFieldName);
+        for (Map.Entry<String, InputValueDefinition> entry : oldDefinitionMap.entrySet()) {
+            String inputFieldName = entry.getKey();
+            InputValueDefinition oldField = entry.getValue();
             Optional<InputValueDefinition> newField = Optional.ofNullable(newDefinitionMap.get(inputFieldName));
 
             ctx.report(DiffEvent.apiInfo()
@@ -771,8 +772,9 @@ public class SchemaDiff {
         Map<String, Directive> oldDirectivesMap = sortedMap(oldDirectives, Directive::getName);
         Map<String, Directive> newDirectivesMap = sortedMap(newDirectives, Directive::getName);
 
-        for (String directiveName : oldDirectivesMap.keySet()) {
-            Directive oldDirective = oldDirectivesMap.get(directiveName);
+        for (Map.Entry<String, Directive> directiveEntry : oldDirectivesMap.entrySet()) {
+            String directiveName = directiveEntry.getKey();
+            Directive oldDirective = directiveEntry.getValue();
             Optional<Directive> newDirective = Optional.ofNullable(newDirectivesMap.get(directiveName));
             if (!newDirective.isPresent()) {
                 ctx.report(DiffEvent.apiBreakage()
@@ -800,8 +802,9 @@ public class SchemaDiff {
                 return;
             }
 
-            for (String argName : oldArgumentsByName.keySet()) {
-                Argument oldArgument = oldArgumentsByName.get(argName);
+            for (Map.Entry<String, Argument> argEntry : oldArgumentsByName.entrySet()) {
+                String argName = argEntry.getKey();
+                Argument oldArgument = argEntry.getValue();
                 Optional<Argument> newArgument = Optional.ofNullable(newArgumentsByName.get(argName));
 
                 if (!newArgument.isPresent()) {
