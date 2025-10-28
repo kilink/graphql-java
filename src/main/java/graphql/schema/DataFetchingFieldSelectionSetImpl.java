@@ -2,6 +2,7 @@ package graphql.schema;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import graphql.Internal;
 import graphql.collect.ImmutableKit;
 import graphql.normalized.ExecutableNormalizedField;
@@ -286,11 +287,8 @@ public class DataFetchingFieldSelectionSetImpl implements DataFetchingFieldSelec
         return FileSystems.getDefault().getPathMatcher("glob:" + fieldGlobPattern);
     }
 
-    private List<String> mkIterable(String fieldGlobPattern, String[] fieldGlobPatterns) {
-        List<String> l = new ArrayList<>();
-        l.add(fieldGlobPattern);
-        Collections.addAll(l, fieldGlobPatterns);
-        return l;
+    private static List<String> mkIterable(String fieldGlobPattern, String[] fieldGlobPatterns) {
+        return Lists.asList(fieldGlobPattern, fieldGlobPatterns);
     }
 
     @Override
